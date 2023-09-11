@@ -1,5 +1,5 @@
 import sys
-# import dj_database_url
+import dj_database_url
 from os import getenv, path
 from pathlib import Path
 import dotenv
@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'djoser',
     'corsheaders',
     'social_django',
-    # 'storages',
 
     'users.apps.UsersConfig'
 ]
@@ -96,7 +95,7 @@ elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
     if getenv('DATABASE_URL', None) is None:
         raise Exception('DATABASE_URL environment variable not defined')
     DATABASES = {
-        # 'default': dj_database_url.parse(getenv('DATABASE_URL')),
+        'default': dj_database_url.parse(getenv('DATABASE_URL')),
     }
 
 # Email Settings
@@ -252,6 +251,8 @@ CORS_ALLOWED_ORIGINS = getenv(
 ).split(',')
 
 CORS_ALLOW_CREDENTIALS = True
+
+FILE_UPLOAD_PERMISSIONS = 0o640
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
